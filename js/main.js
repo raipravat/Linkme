@@ -133,3 +133,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// Add this to your existing JavaScript
+
+// Enhanced scroll effects
+let lastScrollPosition = 0;
+
+window.addEventListener('scroll', function() {
+    const currentScrollPosition = window.scrollY;
+    const homeSection = document.querySelector('#home');
+    const profileContainer = document.querySelector('.profile-container');
+    
+    if (homeSection && profileContainer) {
+        // Hide profile when scrolling up
+        if (currentScrollPosition > lastScrollPosition) {
+            // Scrolling down
+            profileContainer.style.opacity = '1';
+            profileContainer.style.transform = 'translateY(0)';
+        } else {
+            // Scrolling up
+            if (currentScrollPosition > 100) {
+                profileContainer.style.opacity = '0';
+                profileContainer.style.transform = 'translateY(-20px)';
+            } else {
+                profileContainer.style.opacity = '1';
+                profileContainer.style.transform = 'translateY(0)';
+            }
+        }
+    }
+    
+    lastScrollPosition = currentScrollPosition;
+});
+
+// Initialize profile container
+document.addEventListener('DOMContentLoaded', function() {
+    const profileContainer = document.querySelector('.profile-container');
+    if (profileContainer) {
+        profileContainer.style.transition = 'all 0.4s ease-out';
+    }
+});
