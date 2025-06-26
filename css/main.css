@@ -815,7 +815,7 @@ body.light-theme .learning-content h4 {
 }
 
 .copyright {
-  margin-bottom: 10px;
+  margin-bottom: none;
   color: var(--gray-color);
 }
 
