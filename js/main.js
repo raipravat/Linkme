@@ -89,39 +89,52 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Section observer for active nav link
+  // Improved Section Observer for Scroll Visibility
   const sections = document.querySelectorAll(".section");
   const navItems = document.querySelectorAll(".nav-link");
 
   const observerOptions = {
     root: null,
     rootMargin: "0px",
-    threshold: 0.3,
+    threshold: 0.5, // Increased threshold for better visibility
   };
+
+  let lastVisibleSection = null;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
+      const id = entry.target.getAttribute("id");
+      const correspondingNavItem = document.querySelector(
+        `.nav-link[href="#${id}"]`
+      );
+
       if (entry.isIntersecting) {
-        // Remove active class from all nav items
-        navItems.forEach((item) => {
-          item.classList.remove("active");
-        });
+        // Only set the section as active if it's more than 50% visible
+        if (entry.intersectionRatio >= 0.5) {
+          // Remove active class from all sections and nav items
+          sections.forEach((section) => {
+            section.classList.remove("active");
+          });
+          navItems.forEach((item) => {
+            item.classList.remove("active");
+          });
 
-        // Get the corresponding nav link and add active class
-        const id = entry.target.getAttribute("id");
-        const correspondingNavItem = document.querySelector(
-          `.nav-link[href="#${id}"]`
-        );
-
-        if (correspondingNavItem) {
-          correspondingNavItem.classList.add("active");
+          // Set current section and nav item as active
+          entry.target.classList.add("active");
+          if (correspondingNavItem) {
+            correspondingNavItem.classList.add("active");
+          }
+          
+          lastVisibleSection = entry.target;
         }
-
-        // Set the section as active
-        sections.forEach((section) => {
-          section.classList.remove("active");
-        });
-        entry.target.classList.add("active");
+      } else {
+        // If section is not intersecting at all, but was the last visible one
+        if (entry.target === lastVisibleSection) {
+          entry.target.classList.remove("active");
+          if (correspondingNavItem) {
+            correspondingNavItem.classList.remove("active");
+          }
+        }
       }
     });
   }, observerOptions);
@@ -129,6 +142,52 @@ document.addEventListener("DOMContentLoaded", function () {
   sections.forEach((section) => {
     observer.observe(section);
   });
+
+  // Touch event handling for mobile swipe navigation
+  let touchStartY = 0;
+  let touchEndY = 0;
+
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    // Threshold for swipe detection (in pixels)
+    const threshold = 50;
+    
+    // Swipe down - scroll to previous section
+    if (touchStartY - touchEndY > threshold) {
+      scrollToNextSection('down');
+    }
+    // Swipe up - scroll to next section
+    else if (touchEndY - touchStartY > threshold) {
+      scrollToNextSection('up');
+    }
+  }
+
+  function scrollToNextSection(direction) {
+    const currentSection = document.querySelector('.section.active');
+    if (!currentSection) return;
+
+    let targetSection;
+    if (direction === 'up') {
+      targetSection = currentSection.nextElementSibling;
+    } else {
+      targetSection = currentSection.previousElementSibling;
+    }
+
+    if (targetSection && targetSection.classList.contains('section')) {
+      window.scrollTo({
+        top: targetSection.offsetTop - 70,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   // Form submission
   const contactForm = document.querySelector(".contact-form");
@@ -181,4 +240,9 @@ document.addEventListener("DOMContentLoaded", function () {
       behavior: "smooth",
     });
   });
+
+  // Initialize the first section as active
+  if (sections.length > 0) {
+    sections[0].classList.add("active");
+  }
 });
