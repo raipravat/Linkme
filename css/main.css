@@ -166,7 +166,7 @@ a {
 /* Sections */
 .section {
   min-height: 100vh;
-  padding: 100px 0;
+  padding: 25px 0;
   display: flex;
   align-items: center;
   opacity: 0;
@@ -499,7 +499,7 @@ body.light-theme .bio-text {
   transform: translateX(5px);
 }
 
-/* Journey Styles */
+/* journey Styles */
 .learning-path {
   margin: 40px 0;
 }
