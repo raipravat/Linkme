@@ -607,12 +607,12 @@ body.light-theme {
 }
 
 body.light-theme .navbar {
-  background-color: rgba(248, 249, 250, 0.9);
+  background-color: rgb(20 104 187 / 90%);
 }
 
 body.light-theme .brand,
 body.light-theme .nav-link {
-  color: #333;
+  color: #ffffff;
 }
 
 body.light-theme .section-title::after {
@@ -640,16 +640,16 @@ body.light-theme .form-group textarea {
 }
 
 body.light-theme .footer {
-  background-color: #e9ecef;
+  background-color: rgb(20 104 187 / 90%);
 }
 
 body.light-theme .footer p,
 body.light-theme .footer-links a {
-  color: #666;
+  color: #ffffff;
 }
 
 body.light-theme .theme-toggle i {
-  color: #333;
+  color: #000000;
 }
 
 body.light-theme .value-item {
