@@ -145,7 +145,8 @@ a {
   left: 0;
   width: 100%;
   background-color: var(--darker-color);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: invert(80%);
+  backdrop-filter: invert(80%);
   z-index: 1000;
   padding: 15px 0;
   transition: all 0.3s ease;
@@ -182,7 +183,7 @@ a {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--danger-color);
   transition: width 0.3s ease;
 }
 
@@ -206,6 +207,10 @@ a {
   transform: rotate(30deg);
 }
 
+.fa-moon, .fa-sun {
+  color: var(--light-color) !important;
+}
+
 /* Mobile Menu Toggle Button */
 .mobile-menu-toggle {
   display: none;
@@ -225,7 +230,6 @@ a {
 /* Sections */
 .section {
   padding: var(--section-spacing) 0;
-  min-height: auto;
 }
 
 .section-title {
