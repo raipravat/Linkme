@@ -912,6 +912,16 @@ body.light-theme .social-icon:hover {
   background-color: var(--primary-color);
 }
 
+/* Theme toggle button in light mode */
+body.light-theme .theme-toggle {
+  color: var(--primary-color);
+}
+
+body.light-theme .fa-moon,
+body.light-theme .fa-sun {
+  color: #333 !important;
+}
+
 /* Mobile menu button in light mode */
 body.light-theme .mobile-menu-toggle {
   color: #ffffff;

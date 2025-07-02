@@ -23,21 +23,23 @@
 
         // Theme toggle
         const themeToggle = document.querySelector(".theme-toggle");
-        themeToggle.addEventListener("click", function () {
-          document.body.classList.toggle("light-theme");
+        if (themeToggle) {
+          themeToggle.addEventListener("click", function () {
+            document.body.classList.toggle("light-theme");
 
-          // Change icon and save preference
-          const icon = this.querySelector("i");
-          if (document.body.classList.contains("light-theme")) {
-            icon.classList.remove("fa-moon");
-            icon.classList.add("fa-sun");
-            localStorage.setItem("theme", "light");
-          } else {
-            icon.classList.remove("fa-sun");
-            icon.classList.add("fa-moon");
-            localStorage.setItem("theme", "dark");
-          }
-        });
+            // Change icon and save preference
+            const icon = this.querySelector("i");
+            if (document.body.classList.contains("light-theme")) {
+              icon.classList.remove("fa-moon");
+              icon.classList.add("fa-sun");
+              localStorage.setItem("theme", "light");
+            } else {
+              icon.classList.remove("fa-sun");
+              icon.classList.add("fa-moon");
+              localStorage.setItem("theme", "dark");
+            }
+          });
+        }
 
         // Check for saved theme preference
         const savedTheme = localStorage.getItem("theme");
