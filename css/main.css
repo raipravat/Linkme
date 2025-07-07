@@ -248,7 +248,7 @@ a {
 
 /* Header Section */
 #home {
-  padding-top: calc(var(--section-spacing) + 20px);
+  padding-top: calc(var(--section-spacing) + 75px);
 }
 
 .header-grid {
