@@ -438,6 +438,7 @@ a {
   position: relative;
   width: 100%;
   max-width: 500px;
+  padding-left: 80px;
 }
 
 .profile-frame {
