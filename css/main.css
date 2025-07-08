@@ -1293,4 +1293,8 @@ body.light-theme .mobile-menu-toggle {
   .contact-info h3 {
     text-align: center;
   }
+
+  .info-item {
+padding-left: 15px;
+}
 }
