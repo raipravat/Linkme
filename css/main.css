@@ -487,6 +487,7 @@ a {
   text-align: center;
   color: var(--text-muted);
   animation: bounce 2s infinite;
+  cursor: pointer;
 }
 
 .scroll-text {

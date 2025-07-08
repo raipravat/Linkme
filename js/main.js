@@ -70,6 +70,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Scroll to bottom button functionality
+  document.getElementById('scrollTrigger').addEventListener('click', () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  });
+
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
