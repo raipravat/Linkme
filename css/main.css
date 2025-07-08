@@ -479,6 +479,13 @@ a {
   filter: blur(20px);
 }
 
+@media (max-width: 992px) {
+  .profile-container {
+  padding-left: 0;
+}
+
+}
+
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
