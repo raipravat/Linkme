@@ -37,6 +37,16 @@
       </div>
     </nav>
 
+    <!-- Current Section Indicator (dots) -->
+    <div class="current-section-indicator">
+      <a href="#home" class="active"></a>
+      <a href="#projects"></a>
+      <a href="#links"></a>
+      <a href="#Journey"></a>
+      <a href="#testimonials"></a>
+      <a href="#contact"></a>
+    </div>
+
     <!-- Main Content -->
     <div class="container-fluid">
       <!-- Home Section -->
@@ -667,16 +677,10 @@
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Current Section Indicator (dots) -->
-    <div class="current-section-indicator">
-      <a href="#home" class="active"></a>
-      <a href="#projects"></a>
-      <a href="#links"></a>
-      <a href="#Journey"></a>
-      <a href="#testimonials"></a>
-      <a href="#contact"></a>
-    </div>
-
     <script src="js/main.js"></script>
+    <script>
+      // Set current year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>

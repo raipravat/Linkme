@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Set current year in footer
-  document.getElementById("year").textContent = new Date().getFullYear();
-
   // Mobile menu toggle
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   const navLinks = document.querySelector(".nav-links");
