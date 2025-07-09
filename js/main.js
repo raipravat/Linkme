@@ -71,10 +71,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Scroll to bottom button functionality
-  document.getElementById('scrollTrigger').addEventListener('click', () => {
+  document.getElementById("scrollTrigger").addEventListener("click", () => {
     window.scrollTo({
       top: document.body.scrollHeight,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   });
 
@@ -198,4 +198,66 @@ document.addEventListener("DOMContentLoaded", function () {
       behavior: "smooth",
     });
   });
+
+  // Active section indicator for navigation
+  const indicatorDots = document.querySelectorAll(
+    ".current-section-indicator a"
+  );
+  const activeIndicator = document.querySelector(".nav-indicator");
+
+  function updateSectionIndicator(currentSection) {
+    // Update navigation links
+    navItems.forEach((item) => {
+      item.classList.remove("active");
+      if (item.getAttribute("href") === `#${currentSection}`) {
+        item.classList.add("active");
+
+        // Update indicator position
+        const activeItem = item.parentElement;
+        const itemLeft = activeItem.offsetLeft;
+        const itemWidth = activeItem.offsetWidth;
+
+        if (activeIndicator) {
+          activeIndicator.style.width = `${itemWidth}px`;
+          activeIndicator.style.left = `${itemLeft}px`;
+          activeIndicator.style.opacity = "1";
+        }
+      }
+    });
+
+    // Update indicator dots
+    indicatorDots.forEach((dot) => {
+      dot.classList.remove("active");
+      if (dot.getAttribute("href") === `#${currentSection}`) {
+        dot.classList.add("active");
+      }
+    });
+
+    // Hide indicator if no active section
+    if (!currentSection && activeIndicator) {
+      activeIndicator.style.opacity = "0";
+    }
+  }
+
+  // Call updateSectionIndicator when scroll position changes
+  window.addEventListener("scroll", function () {
+    let currentSection = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+    updateSectionIndicator(currentSection);
+  });
+
+  // Initial call
+  let initialSection = "";
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) {
+      initialSection = section.getAttribute("id");
+    }
+  });
+  updateSectionIndicator(initialSection);
 });
