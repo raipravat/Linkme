@@ -251,7 +251,7 @@ a {
   padding-top: calc(var(--section-spacing) + 20px);
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+
   display: flex;
   align-items: center;
 }
