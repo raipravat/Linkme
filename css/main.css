@@ -481,9 +481,8 @@ a {
 
 @media (max-width: 992px) {
   .profile-container {
-  padding-left: 0;
-}
-
+    padding-left: 0;
+  }
 }
 
 /* Scroll Indicator */
@@ -1327,6 +1326,6 @@ body.light-theme .mobile-menu-toggle {
   }
 
   .info-item {
-padding-left: 15px;
-}
+    padding-left: 15px;
+  }
 }
