@@ -258,3 +258,37 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   updateSectionIndicator(initialSection);
 });
+
+// Hero text typed style
+  const nameWords = ["Prabhat Rai"]; // Replace with your actual name
+  const typedText = document.getElementById("typed-text");
+
+  let wordIndex = 0;
+  let charIndex = 0;
+  let typing = true;
+
+  function typeEffect() {
+    const currentWord = nameWords[wordIndex];
+
+    if (typing) {
+      typedText.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === currentWord.length) {
+        typing = false;
+        setTimeout(typeEffect, 800); // wait before deleting
+        return;
+      }
+    } else {
+      typedText.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        typing = true;
+        wordIndex = (wordIndex + 1) % nameWords.length;
+      }
+    }
+
+    setTimeout(typeEffect, 100); // typing speed
+  }
+
+  typeEffect();
+

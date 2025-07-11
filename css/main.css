@@ -283,6 +283,23 @@ a {
   width: 100%;
   text-align: center;
   order: 1;
+  padding: 30px 0;
+  transition: all 0.3s ease;
+}
+
+.hero-content:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--box-shadow);
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero-text-wrapper {
@@ -396,6 +413,13 @@ a {
   display: flex;
   justify-content: center;
   order: 2;
+  padding: 30px 0;
+  transition: all 0.3s ease;
+}
+
+.hero-preview:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--box-shadow);
 }
 
 .profile-container {
@@ -484,15 +508,6 @@ a {
   60% {
     transform: translateX(-50%) translateY(-5px);
   }
-}
-
-body.light-theme .scroll-text {
-  color: var(--dark-color);
-}
-
-body.light-theme .scroll-arrow {
-  border-bottom: 2px solid var(--dark-color);
-  border-right: 2px solid var(--dark-color);
 }
 
 /* Projects Section */
@@ -915,7 +930,7 @@ body.light-theme .scroll-arrow {
   border-radius: 5px;
   color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
 }
 
@@ -1031,6 +1046,15 @@ body.light-theme .scroll-arrow {
 }
 
 /* Light Theme */
+body.light-theme .scroll-text {
+  color: var(--dark-color);
+}
+
+body.light-theme .scroll-arrow {
+  border-bottom: 2px solid var(--dark-color);
+  border-right: 2px solid var(--dark-color);
+}
+
 body.light-theme {
   background-color: #f8f9fa;
   color: #333;
@@ -1103,11 +1127,6 @@ body.light-theme .mobile-menu-toggle {
   .cta-buttons {
     flex-direction: column;
     gap: 10px;
-  }
-
-  .tech-tag {
-    font-size: 0.7rem;
-    padding: 3px 10px;
   }
 }
 
