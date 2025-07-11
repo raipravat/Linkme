@@ -283,13 +283,7 @@ a {
   width: 100%;
   text-align: center;
   order: 1;
-  padding: 30px 0;
-  transition: all 0.3s ease;
-}
-
-.hero-content:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--box-shadow);
+  padding: 30px;
 }
 
 .cursor {
