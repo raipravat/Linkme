@@ -1150,6 +1150,10 @@ body.light-theme .mobile-menu-toggle {
 
 /* Max-width: 768px (Mobile + small tablets) */
 @media (max-width: 768px) {
+  .hero-content {
+    padding: 0;
+  }
+
   .section {
     padding: var(--small-spacing) 0;
   }
