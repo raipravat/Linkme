@@ -358,6 +358,7 @@ a {
   margin-bottom: 30px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
+  text-align: justify;
 }
 
 .cta-buttons {
@@ -1138,8 +1139,8 @@ body.light-theme .mobile-menu-toggle {
 /* Max-width: 480px */
 @media (max-width: 480px) {
   .profile-frame {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 
   .cta-buttons {
@@ -1229,7 +1230,7 @@ body.light-theme .mobile-menu-toggle {
   .hero-grid {
     flex-direction: row;
     text-align: left;
-    gap: 50px;
+    gap: 25px;
   }
 
   .hero-content {
