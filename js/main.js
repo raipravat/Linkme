@@ -2,21 +2,32 @@ document.addEventListener("DOMContentLoaded", function () {
   // Mobile menu toggle
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   const navLinks = document.querySelector(".nav-links");
+  const body = document.body;
 
   mobileMenuToggle.addEventListener("click", function () {
     this.classList.toggle("active");
     navLinks.classList.toggle("active");
-    document.body.style.overflow = navLinks.classList.contains("active")
-      ? "hidden"
-      : "";
+    body.classList.toggle("menu-open");
+
+    // Change icon between bars and times
+    const icon = this.querySelector("i");
+    if (navLinks.classList.contains("active")) {
+      icon.classList.replace("fa-bars", "fa-times");
+    } else {
+      icon.classList.replace("fa-times", "fa-bars");
+    }
   });
 
   // Close mobile menu when clicking a link
   document.querySelectorAll(".nav-link").forEach((link) => {
     link.addEventListener("click", function () {
-      mobileMenuToggle.classList.remove("active");
-      navLinks.classList.remove("active");
-      document.body.style.overflow = "";
+      if (window.innerWidth <= 768) {
+        navLinks.classList.remove("active");
+        body.classList.remove("menu-open");
+        mobileMenuToggle
+          .querySelector("i")
+          .classList.replace("fa-times", "fa-bars");
+      }
     });
   });
 
@@ -257,9 +268,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   updateSectionIndicator(initialSection);
-});
 
-// Hero text typed style
+  // Hero text typed style
   const nameWords = ["Prabhat Rai"]; // Replace with your actual name
   const typedText = document.getElementById("typed-text");
 
@@ -292,3 +302,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   typeEffect();
 
+  // Set current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+});
