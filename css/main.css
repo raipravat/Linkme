@@ -366,7 +366,6 @@ a {
   display: flex;
   gap: 15px;
   margin-bottom: 40px;
-  justify-content: center;
 }
 
 .cta-button {
