@@ -155,48 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", setActiveSection);
   setActiveSection();
 
-  // Form submission
-  const contactForm = document.querySelector(".contact-form");
-  if (contactForm) {
-    contactForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const submitBtn = this.querySelector(".submit-btn");
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
-
-      try {
-        // Simulate form submission
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-        // Remove any existing success message
-        const existingSuccess = this.querySelector(".form-success");
-        if (existingSuccess) {
-          existingSuccess.remove();
-        }
-
-        // Show success message
-        const successMsg = document.createElement("div");
-        successMsg.className = "form-success";
-        successMsg.textContent = "Message sent successfully!";
-        this.appendChild(successMsg);
-
-        // Reset form
-        this.reset();
-
-        setTimeout(() => {
-          successMsg.remove();
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Send Message";
-        }, 3000);
-      } catch (error) {
-        console.error("Error:", error);
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Send Message";
-        alert("There was an error sending your message. Please try again.");
-      }
-    });
-  }
 
   // Scroll to Top Button
   const scrollToTopBtn = document.querySelector(".scroll-to-top");
