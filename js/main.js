@@ -155,7 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", setActiveSection);
   setActiveSection();
 
-
   // Scroll to Top Button
   const scrollToTopBtn = document.querySelector(".scroll-to-top");
   scrollToTopBtn.addEventListener("click", function () {
@@ -262,4 +261,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Set current year in footer
   document.getElementById("year").textContent = new Date().getFullYear();
+});
+
+// Massage submit code to google Sheet
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  // Get form elements
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const subjectInput = document.getElementById("subject");
+  const messageInput = document.getElementById("message");
+  const submitBtn = form.querySelector("button[type='submit']");
+
+  // Validate form
+  if (
+    !nameInput.value.trim() ||
+    !emailInput.value.trim() ||
+    !messageInput.value.trim()
+  ) {
+    alert("Please fill in all required fields");
+    return;
+  }
+
+  // Email validation
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  // Prepare data
+  const data = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    subject: subjectInput.value.trim(),
+    message: messageInput.value.trim(),
+    timestamp: new Date().toISOString(), // Add timestamp
+  };
+
+  // Show loading state
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+  try {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbxDEKyA-dN6HIkyK934lOE_Me-8V8S9sKiD-fjz21c_qamQfd1nUjyvbHSdEemUpUX9PQ/exec",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.result === "success") {
+      // Success - show confirmation
+      alert("Thank you! Your message has been sent successfully.");
+      form.reset();
+    } else {
+      throw new Error(result.error || "Unknown error occurred");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert(
+      `Failed to send message. ${error.message || "Please try again later."}`
+    );
+  } finally {
+    // Reset button state
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send Message";
+  }
 });
