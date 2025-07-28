@@ -947,7 +947,7 @@ a {
   background-color: rgba(155, 139, 139, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  color: white;
+  color: rgb(235, 227, 227);
   font-family: inherit;
   font-size: 0.8rem;
   transition: all 0.3s ease;
@@ -1104,6 +1104,11 @@ body.light-theme .testimonial-text,
 body.light-theme .value-details li,
 body.light-theme .bio-text {
   color: #666;
+}
+
+body.light-theme .form-group input,
+body.light-theme .form-group textarea {
+  color: rgb(28, 3, 3);
 }
 
 body.light-theme .footer p {
