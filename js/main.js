@@ -263,21 +263,19 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("year").textContent = new Date().getFullYear();
 });
 
-
-
 // Contact Form Submission
 const contactForm = document.getElementById("contactForm");
 
-contactForm.addEventListener("submit", async function(e) {
+contactForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   // Sanitize inputs
-function sanitizeInput(input) {
-  return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
+  function sanitizeInput(input) {
+    return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 
-// Usage:
-const cleanMessage = sanitizeInput(messageInput.value);
+  // Usage:
+  const cleanMessage = sanitizeInput(messageInput.value);
 
   // Get form elements
   const nameInput = document.getElementById("name");
@@ -290,7 +288,11 @@ const cleanMessage = sanitizeInput(messageInput.value);
   const originalBtnText = submitBtn.textContent;
 
   // Validate form
-  if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+  if (
+    !nameInput.value.trim() ||
+    !emailInput.value.trim() ||
+    !messageInput.value.trim()
+  ) {
     showAlert("Please fill in all required fields", "error");
     return;
   }
@@ -315,18 +317,23 @@ const cleanMessage = sanitizeInput(messageInput.value);
 
   try {
     // Use a more reliable endpoint
-    const response = await fetch("https://script.google.com/macros/s/AKfycbw08OWQeKnUrHfbDTUcNQy6BjTehwJ9SJnMRTCsI7OLuv_62P5wdInG02LSoGIc3htN4Q/exec", {
-      method: "POST",
-      body: formData,
-      mode: "no-cors" // Important for Google Apps Script
-    });
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbw08OWQeKnUrHfbDTUcNQy6BjTehwJ9SJnMRTCsI7OLuv_62P5wdInG02LSoGIc3htN4Q/exec",
+      {
+        method: "POST",
+        body: formData,
+        mode: "no-cors", // Important for Google Apps Script
+      }
+    );
 
-   showAlert("Thank you! Your message has been sent successfully.", "success");
-contactForm.reset();
-    
+    showAlert("Thank you! Your message has been sent successfully.", "success");
+    contactForm.reset();
   } catch (error) {
     console.error("Error:", error);
-    showAlert(`Failed to send message. Please try again later or contact me directly at mr.raipravat@gmail.com`, "error");
+    showAlert(
+      `Failed to send message. Please try again later or contact me directly at mr.raipravat@gmail.com`,
+      "error"
+    );
   } finally {
     // Reset button state
     submitBtn.disabled = false;
@@ -345,16 +352,15 @@ function showAlert(message, type) {
   const alertDiv = document.createElement("div");
   alertDiv.className = `form-alert ${type}`;
   alertDiv.textContent = message;
-  
+
   // Insert before the form
   contactForm.parentNode.insertBefore(alertDiv, contactForm);
-  
+
   // Remove after 5 seconds
   setTimeout(() => {
     alertDiv.remove();
   }, 5000);
 }
-
 
 // Fetch and display blog posts from Blogger
 const BLOG_URL = "https://blog.prabhat.info.np";
@@ -370,10 +376,10 @@ async function fetchBlogPosts() {
       delete window[callbackName];
     };
 
-   const script = document.createElement("script");
-script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
-script.onerror = () => {
-  document.getElementById("blog-posts").innerHTML = `
+    const script = document.createElement("script");
+    script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
+    script.onerror = () => {
+      document.getElementById("blog-posts").innerHTML = `
     <div class="error" style="
       text-align: center;
       padding: 40px;
@@ -387,11 +393,11 @@ script.onerror = () => {
       Some reason we can't load Blog posts. Please wait a little longer or 
       <a href="${BLOG_URL}" style="color:#3498db;">visit the blog directly</a>.
     </div>`;
-  
-  // Also style the container to allow proper centering
-  document.getElementById("blog-posts").style.position = "relative";
-  document.getElementById("blog-posts").style.minHeight = "10vh";
-};
+
+      // Also style the container to allow proper centering
+      document.getElementById("blog-posts").style.position = "relative";
+      document.getElementById("blog-posts").style.minHeight = "10vh";
+    };
     document.head.appendChild(script);
   } catch (error) {
     console.error("Error fetching posts:", error);
