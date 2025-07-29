@@ -1105,6 +1105,18 @@ a {
   }
 }
 
+.recaptcha-container {
+  position: relative;
+  min-height: 100px;
+}
+
+.g-recaptcha {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 /* Footer */
 .footer {
   background-color: var(--darker-color);
