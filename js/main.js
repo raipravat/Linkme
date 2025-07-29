@@ -370,15 +370,28 @@ async function fetchBlogPosts() {
       delete window[callbackName];
     };
 
-    const script = document.createElement("script");
-    script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
-    script.onerror = () => {
-      document.getElementById("blog-posts").innerHTML = `
-                    <div class="error" style="text-align:center; padding:40px; color:#e74c3c;">
-                        Could not load blog posts. 
-                        <a href="${BLOG_URL}" style="color:#3498db;">Visit blog directly</a>
-                    </div>`;
-    };
+   const script = document.createElement("script");
+script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
+script.onerror = () => {
+  document.getElementById("blog-posts").innerHTML = `
+    <div class="error" style="
+      text-align: center;
+      padding: 40px;
+      color: #e74c3c;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    ">
+      Some reason we can't load Blog posts. Please wait a little longer or 
+      <a href="${BLOG_URL}" style="color:#3498db;">visit the blog directly</a>.
+    </div>`;
+  
+  // Also style the container to allow proper centering
+  document.getElementById("blog-posts").style.position = "relative";
+  document.getElementById("blog-posts").style.minHeight = "10vh";
+};
     document.head.appendChild(script);
   } catch (error) {
     console.error("Error fetching posts:", error);
