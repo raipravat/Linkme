@@ -26,15 +26,7 @@
           <li><a href="#links" class="nav-link">Links</a></li>
           <li><a href="#Journey" class="nav-link">Journey</a></li>
           <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-          <li>
-            <a
-              href="https://blog.prabhat.info.np/"
-              target="_blank"
-              rel="noopener"
-              class="nav-link"
-              >Blogs</a
-            >
-          </li>
+           <li><a href="#blog" class="nav-link">Blogs</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
         <div class="theme-toggle">
@@ -53,6 +45,7 @@
       <a href="#links" aria-label="link"></a>
       <a href="#Journey" aria-label="Journey"></a>
       <a href="#testimonials" aria-label="Testimonials"></a>
+      <a href="#blog" aria-label="Blogs"></a>
       <a href="#contact" aria-label="contact"></a>
     </div>
 
@@ -571,6 +564,18 @@
         </div>
       </section>
 
+ <!-- Blogs Section -->
+<section id="blog" class="section">
+    <div class="container">
+        <h2 class="section-title fade-in">
+            Latest <span class="highlight">Blog Posts</span>
+        </h2>
+        <div class="posts-grid" id="blog-posts">
+            <div class="loading">Loading posts...</div>
+        </div>
+    </div>
+</section>
+
       <!-- Contact Section -->
       <section id="contact" class="section">
         <div class="container">
@@ -632,7 +637,7 @@
                 ></a>
               </div>
             </div>
-            <form class="contact-form slide-in-right delay-1" id="contactForm">
+            <form action="https://script.google.com/macros/s/AKfycbw08OWQeKnUrHfbDTUcNQy6BjTehwJ9SJnMRTCsI7OLuv_62P5wdInG02LSoGIc3htN4Q/exec" method="POST" class="contact-form" id="contactForm">
               <div class="form-group fade-in delay-2">
                 <input type="text" id="name" placeholder="Your Name" required />
               </div>
@@ -655,6 +660,8 @@
                   required
                 ></textarea>
               </div>
+              <!-- Add reCAPTCHA widget -->
+  <div class="g-recaptcha" data-sitekey="6Lcnc5MrAAAAACkF0iFyq5TvMLfYTk_rU49l5qQ4"></div>
               <div class="button-wrapper">
                 <button type="submit" class="submit-btn fade-in delay-5">
                   Send Message
@@ -691,5 +698,7 @@
     </button>
 
     <script src="js/main.js"></script>
+    <!-- Load reCAPTCHA API -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </body>
 </html>

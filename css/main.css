@@ -4,7 +4,7 @@
   --dark-color: #1a1a2e;
   --darker-color: #16213e;
   --light-color: #f8f9fa;
-  --gray-color: #6c757d;
+  --gray-color: #a9b5be;
   --success-color: #00b894;
   --danger-color: #d63031;
   --warning-color: #fdcb6e;
@@ -359,7 +359,6 @@ a {
   margin-bottom: 30px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
-
 }
 
 .cta-buttons {
@@ -581,7 +580,6 @@ a {
   margin-bottom: 15px;
   color: var(--gray-color);
   font-size: 0.9rem;
-  text-align: center;
 }
 
 .project-tech {
@@ -880,6 +878,86 @@ a {
   color: var(--gray-color);
 }
 
+/* Blog Section */
+.blog-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section-title {
+  text-align: center;
+  color: #d4d9dd;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+}
+
+/* Post Grid */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* Individual Post Card */
+.post-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.post-content {
+  padding: 20px;
+}
+
+.post-title {
+  font-size: 1.3rem;
+  margin: 0 0 10px 0;
+  color: #3498db;
+}
+
+.post-excerpt {
+  color: #7f8c8d;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+.read-more {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 40px;
+  grid-column: 1 / -1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Contact Section */
 .contact-content {
   display: flex;
@@ -909,7 +987,7 @@ a {
   align-items: center;
   justify-content: center;
   margin-right: 15px;
-  color: var(--danger-color);
+  color: var(--primary-color);
   transition: all 0.3s ease;
 }
 
@@ -943,7 +1021,7 @@ a {
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 5px 15px;
+  padding: 10px 15px;
   background-color: rgba(155, 139, 139, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -976,7 +1054,7 @@ a {
   height: auto;
   padding: 10px 30px;
   background-color: var(--primary-color);
-  color: white;
+  color: var(--light-color);
   border: none;
   border-radius: 5px;
   font-weight: 600;
@@ -991,6 +1069,38 @@ a {
   background-color: #5a4bd1;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+}
+
+.form-alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  text-align: center;
+  animation: slideDown 0.3s ease-out;
+}
+
+.form-alert.error {
+  background-color: rgba(214, 48, 49, 0.2);
+  border-left: 4px solid var(--danger-color);
+  color: var(--danger-color);
+}
+
+.form-alert.success {
+  background-color: rgba(0, 184, 148, 0.2);
+  border-left: 4px solid var(--success-color);
+  color: var(--success-color);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Footer */
@@ -1085,7 +1195,7 @@ body.light-theme .footer {
 }
 
 body.light-theme .nav-link {
-  color: #ffffff;
+  color: var(--light-color);
 }
 
 body.light-theme .link-card,
@@ -1094,7 +1204,7 @@ body.light-theme .contact-form,
 body.light-theme .testimonial-card,
 body.light-theme .learning-item,
 body.light-theme .value-item {
-  background-color: white;
+  background-color: var(--light-color);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
@@ -1108,11 +1218,15 @@ body.light-theme .bio-text {
 
 body.light-theme .form-group input,
 body.light-theme .form-group textarea {
-  color: rgb(28, 3, 3);
+  color: var(--dark-color);
+}
+
+body.light-theme .section-title {
+  color: var(--darker-color);
 }
 
 body.light-theme .footer p {
-  color: #ffffff;
+  color: var(--light-color);
 }
 
 body.light-theme .social-icon {
@@ -1136,7 +1250,7 @@ body.light-theme .fa-sun {
 
 /* Mobile menu button in light mode */
 body.light-theme .mobile-menu-toggle {
-  color: #ffffff;
+  color: var(--light-color);
 }
 
 /* ==================== MEDIA QUERIES ==================== */

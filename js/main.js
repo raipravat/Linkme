@@ -263,77 +263,185 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("year").textContent = new Date().getFullYear();
 });
 
-// Massage submit code to google Sheet
-const form = document.getElementById("contactForm");
 
-form.addEventListener("submit", async function (e) {
+
+// Contact Form Submission
+const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", async function(e) {
   e.preventDefault();
+
+  // Sanitize inputs
+function sanitizeInput(input) {
+  return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Usage:
+const cleanMessage = sanitizeInput(messageInput.value);
 
   // Get form elements
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("email");
   const subjectInput = document.getElementById("subject");
   const messageInput = document.getElementById("message");
-  const submitBtn = form.querySelector("button[type='submit']");
+  const submitBtn = contactForm.querySelector("button[type='submit']");
+
+  // Original button text
+  const originalBtnText = submitBtn.textContent;
 
   // Validate form
-  if (
-    !nameInput.value.trim() ||
-    !emailInput.value.trim() ||
-    !messageInput.value.trim()
-  ) {
-    alert("Please fill in all required fields");
+  if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+    showAlert("Please fill in all required fields", "error");
     return;
   }
 
   // Email validation
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
-    alert("Please enter a valid email address");
+    showAlert("Please enter a valid email address", "error");
     return;
   }
 
   // Prepare data
-  const data = {
-    name: nameInput.value.trim(),
-    email: emailInput.value.trim(),
-    subject: subjectInput.value.trim(),
-    message: messageInput.value.trim(),
-    timestamp: new Date().toISOString(), // Add timestamp
-  };
+  const formData = new FormData();
+  formData.append("name", nameInput.value.trim());
+  formData.append("email", emailInput.value.trim());
+  formData.append("subject", subjectInput.value.trim());
+  formData.append("message", messageInput.value.trim());
+  formData.append("timestamp", new Date().toISOString());
 
   // Show loading state
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
   try {
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbxDEKyA-dN6HIkyK934lOE_Me-8V8S9sKiD-fjz21c_qamQfd1nUjyvbHSdEemUpUX9PQ/exec",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    // Use a more reliable endpoint
+    const response = await fetch("https://script.google.com/macros/s/AKfycbw08OWQeKnUrHfbDTUcNQy6BjTehwJ9SJnMRTCsI7OLuv_62P5wdInG02LSoGIc3htN4Q/exec", {
+      method: "POST",
+      body: formData,
+      mode: "no-cors" // Important for Google Apps Script
+    });
 
-    const result = await response.json();
-
-    if (result.result === "success") {
-      // Success - show confirmation
-      alert("Thank you! Your message has been sent successfully.");
-      form.reset();
-    } else {
-      throw new Error(result.error || "Unknown error occurred");
-    }
+   showAlert("Thank you! Your message has been sent successfully.", "success");
+contactForm.reset();
+    
   } catch (error) {
     console.error("Error:", error);
-    alert(
-      `Failed to send message. ${error.message || "Please try again later."}`
-    );
+    showAlert(`Failed to send message. Please try again later or contact me directly at mr.raipravat@gmail.com`, "error");
   } finally {
     // Reset button state
     submitBtn.disabled = false;
-    submitBtn.textContent = "Send Message";
+    submitBtn.textContent = originalBtnText;
   }
 });
+
+// Helper function to show alerts
+function showAlert(message, type) {
+  // Remove any existing alerts
+  const existingAlert = document.querySelector(".form-alert");
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+
+  const alertDiv = document.createElement("div");
+  alertDiv.className = `form-alert ${type}`;
+  alertDiv.textContent = message;
+  
+  // Insert before the form
+  contactForm.parentNode.insertBefore(alertDiv, contactForm);
+  
+  // Remove after 5 seconds
+  setTimeout(() => {
+    alertDiv.remove();
+  }, 5000);
+}
+
+
+// Fetch and display blog posts from Blogger
+const BLOG_URL = "https://blog.prabhat.info.np";
+const POSTS_TO_SHOW = 3; // Number of posts to display
+const EXCERPT_LENGTH = 120; // Character length for excerpts
+
+async function fetchBlogPosts() {
+  try {
+    // Using JSONP approach to avoid CORS issues
+    const callbackName = "handleBloggerResponse" + Date.now();
+    window[callbackName] = function (data) {
+      displayPosts(data.feed.entry);
+      delete window[callbackName];
+    };
+
+    const script = document.createElement("script");
+    script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=${callbackName}`;
+    script.onerror = () => {
+      document.getElementById("blog-posts").innerHTML = `
+                    <div class="error" style="text-align:center; padding:40px; color:#e74c3c;">
+                        Could not load blog posts. 
+                        <a href="${BLOG_URL}" style="color:#3498db;">Visit blog directly</a>
+                    </div>`;
+    };
+    document.head.appendChild(script);
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+}
+
+function displayPosts(posts) {
+  const container = document.getElementById("blog-posts");
+
+  if (!posts || posts.length === 0) {
+    container.innerHTML =
+      '<div style="text-align:center; padding:40px;">No posts found.</div>';
+    return;
+  }
+
+  let html = "";
+  posts.slice(0, POSTS_TO_SHOW).forEach((post) => {
+    const title = post.title.$t;
+    const fullContent = post.content.$t;
+    const excerpt = stripHtml(fullContent).substring(0, EXCERPT_LENGTH) + "...";
+    const url = post.link.find((link) => link.rel === "alternate").href;
+    const date = new Date(post.published.$t).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    // Try to find the first image in the post
+    const imgMatch = fullContent.match(/<img[^>]+src="([^">]+)"/);
+    const imageUrl = imgMatch ? imgMatch[1] : null;
+
+    html += `
+                <div class="project-card">
+                    ${
+                      imageUrl
+                        ? `
+                    <div class="project-image">
+                        <img src="${imageUrl}" alt="${title}" loading="lazy">
+                    </div>
+                    `
+                        : ""
+                    }
+                    <div class="project-content">
+                        <h3>${title}</h3>
+                        <p class="post-excerpt">${excerpt}</p>
+                        <div class="project-tech">
+                            <span>${date}</span>
+                        </div>
+                        <a href="${url}" class="project-link" target="_blank" rel="noopener">Read Post</a>
+                    </div>
+                </div>
+            `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Helper function to remove HTML tags
+function stripHtml(html) {
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+}
+
+// Load posts when page is ready
+fetchBlogPosts();
