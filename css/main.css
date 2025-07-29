@@ -573,7 +573,6 @@ a {
   margin-bottom: 10px;
   color: var(--primary-color);
   transition: color 0.3s ease;
-  text-align: center;
   font-family: sans-serif;
 }
 
