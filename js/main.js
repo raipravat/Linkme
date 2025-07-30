@@ -364,7 +364,7 @@ function showAlert(message, type) {
 
 // Fetch and display blog posts from Blogger
 const BLOG_URL = "https://blog.prabhat.info.np";
-const POSTS_TO_SHOW = 3; // Number of posts to display
+const POSTS_TO_SHOW = 4; // Number of posts to display
 const EXCERPT_LENGTH = 120; // Character length for excerpts
 
 async function fetchBlogPosts() {
